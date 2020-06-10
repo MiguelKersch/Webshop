@@ -18,5 +18,15 @@ class DatabaseSeeder extends Seeder
                 'description' => 'description'
             ]);
         }
+
+        for ($category = 1; $category < 6; $category++) {
+            for ($product = 1; $product < 6; $product++) {
+                DB::table('product')->insert([
+                    'name' => 'product' . $product,
+                    'description' => 'description',
+                    'category_id' => $category
+                ]);
+            }
+        }
     }
 }
