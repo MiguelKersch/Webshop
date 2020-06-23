@@ -24,7 +24,10 @@
         <ul class="navbar-nav ml-auto">
             @auth
             <li class="nav-item">
-                <a class="text-light nav-link" href="{{ url('/home') }}">Home</a>
+                <a class="text-light nav-link" href="{{ url('shoppingCart') }}">Shopping Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-light nav-link" href="{{ route('logout') }}">Logout</a>
             </li>
             @else
             <li class="nav-item">

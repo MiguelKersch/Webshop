@@ -13,15 +13,25 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
 
+Auth::routes();
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+Route::get('/home', function () {
+    return view('home');
 });
 
-Route::get('category','categoryController@index');
+Route::get('category', 'categoryController@index');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('product/{id}', 'productController@index');
+Route::get('product/{id}', [
+    'as' => 'product.index',
+    'uses' => 'productController@index'
+]);
 Route::get('productView/{id}', 'productViewController@index');
+Route::get('shoppingCart', 'shoppingCartController@index');
+Route::get('add-to-cart/{id}', [
+    'as' => 'product.addToCart',
+    'uses' => 'productController@getAddToCart'
+]);
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

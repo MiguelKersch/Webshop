@@ -2,22 +2,20 @@
 
 <body>
     @include('layouts.navbar')
-    <h1>{{$category->name}}</h1>
+
     <h1>products`s</h1>
-    <table class="table table-striped">
-        <thead class="bg-dark text-light">
-            <tr scope="row">
-                <td scope="col">Name</td>
-                <td><a class="text-light nav-link" href="/category/"><i class="fas fa-arrow-left"></i></a></td></td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($products as $product)
-            <tr scope="row">
-                <td>{{ $product->name }}</td>
-                <td><a class="text-dark nav-link" href="/productView/{{ $product->id }}"><i class="fas fa-arrow-right"></i></a></td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="row">
+        @foreach($products as $product)
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $product->name }}</h5>
+                    <a href="/productView/{{$product->id}} " class="btn btn-dark">Product View</a>
+                    <a href="{{route('product.addToCart', ['id'=> $product->id])}}" class="btn btn-success">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
 </body>

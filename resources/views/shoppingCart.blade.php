@@ -1,7 +1,7 @@
 @include('layouts.head')
 <body>
     @include('layouts.navbar')
-    <h1>Webshop</h1>
+    <h1>Shopping Cart</h1>
 </body>
 
 </html>
