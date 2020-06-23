@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
                 DB::table('product')->insert([
                     'name' => 'product' . $product,
                     'description' => 'description',
+                    'price' => $product,
                     'category_id' => $category
                 ]);
             }

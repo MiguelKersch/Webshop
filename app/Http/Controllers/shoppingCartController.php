@@ -7,7 +7,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ProductViewController extends Controller
+class ShoppingCartController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -19,10 +19,8 @@ class ProductViewController extends Controller
         $this->middleware('auth');
     }
 
-    public function index($id)
+    public function index()
     {
-        $product = DB::table('product')->where('id', $id)->first();
-
-        return view('productView', ['product' => $product]);
+        return view('shoppingCart');
     }
 }
