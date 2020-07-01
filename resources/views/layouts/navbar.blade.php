@@ -24,7 +24,7 @@
         <ul class="navbar-nav ml-auto">
             @auth
             <li class="nav-item">
-                <a class="text-light nav-link" href="{{ url('shoppingCart') }}">Shopping Cart</a>
+                <a class="text-light nav-link" href="{{ url('shoppingCart') }}">Shopping Cart <span class='badge badge-light'>{{Session::has('cart') ? Session::get('cart')-> totalQuantity : ''}}</span></a>
             </li>
             <li class="nav-item">
                 <a class="text-light nav-link" href="{{ route('logout') }}">Logout</a>

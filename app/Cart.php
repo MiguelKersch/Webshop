@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Session;
+
 class Cart
 {
     public $items = null;
@@ -9,8 +11,9 @@ class Cart
     public $totalPrice = 0;
 
 
-    public function __construct($oldCart)
+    public function __construct()
     {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
         if ($oldCart) {
             $this->items = $oldCart->items;
             $this->totalQuantity = $oldCart->totalQuantity;
@@ -27,9 +30,29 @@ class Cart
             }
         }
         $storedItem['quantity']++;
-        $storedItem['quantity'] = $item->price * $storedItem['quantity'];
+        $storedItem['price'] = $item->price * $storedItem['quantity'];
         $this->items[$id] = $storedItem;
         $this->totalQuantity++;
         $this->totalPrice += $item->price;
+    }
+    public function removeProduct($id)
+    {
+        $item = $this->items[$id];
+
+        $this->totalQuantity--;
+        $this->items[$id]['quantity']--;
+        $item['price'] -= $item['item']['price'];
+        $this->totalPrice -= $item['item']['price'];
+
+        if ($this->items[$id]['quantity'] <= 0) {
+            unset($this->items[$id]);
+        }
+        $products = $this->items;
+
+        if ($products == null) {
+            Session::forget('cart');
+        } else {
+            Session::put('cart', $this);
+        }
     }
 }
