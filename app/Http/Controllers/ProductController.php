@@ -22,7 +22,12 @@ class ProductController extends Controller
     {
         $this->middleware('auth');
     }
-
+    /**
+     * Laat de product pagina zien met de data die nodig is
+     *
+     * @param int $id
+     * @return void
+     */
     public function index($id)
     {
         $categoryName = DB::table('category')->where('id', $id)->first();
@@ -30,6 +35,14 @@ class ProductController extends Controller
 
         return view('product', ['products' => $product], ['category' => $categoryName]);
     }
+
+    /**
+     * Zorg ervoor dat je een product kan toevoegen aan de shoppingcart
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
     public function getAddToCart(Request $request , $id)
     {
         $product = Product::find($id);
@@ -38,7 +51,7 @@ class ProductController extends Controller
         $cart->add($product, $product->id);
 
         $request->session()->put('cart', $cart);
-        return redirect()->route('product.index', ['id'=> $product->category_id]);
+        return redirect()->back();
         
     }
 }

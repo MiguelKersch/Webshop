@@ -13,6 +13,7 @@
                 <td scope="col">Quantity</td>
                 <td scope="col">Price</td>
                 <td></td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -21,14 +22,14 @@
                 <td>{{ $product['item']['name'] }}</td>
                 <td>{{ $product['quantity'] }}</td>
                 <td>{{ $product['price'] }}</td>
+                <td><a href="{{ route('add', ['id' => $product['item']['id']]) }}"><i class="text-success fas fa-plus"></i></a></td>
                 <td><a class="fa fa-trash text-danger" href="{{route('removeItem', $product['item']['id'])}}"></a></td>
             </tr>
             @endforeach
         </tbody>
     </table>
     <h3>Total Cost: {{$totalPrice}} Euro</h3>
-
-    <a class="fa fa-trash text-danger" href="{{route('removeItem', $product['item']['id'])}}"></a>
+    <h5><a class="text-dark" href="{{ route('orderStore')}}">Order</a></h5>
     @else
     <h3>Your shopping cart is empty</h3>
     @endif

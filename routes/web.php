@@ -29,9 +29,28 @@ Route::get('product/{id}', [
     'uses' => 'productController@index'
 ]);
 Route::get('productView/{id}', 'productViewController@index');
-Route::get('shoppingCart', 'shoppingCartController@index');
+Route::get('shoppingCart', [
+    'as' => 'shoppingCart',
+    'uses' => 'shoppingCartController@index'
+]);
 Route::get('add-to-cart/{id}', [
     'as' => 'product.addToCart',
+    'uses' => 'productController@getAddToCart'
+]);
+Route::get('removeItem/{id}', [
+    'as' => 'removeItem',
+    'uses' => 'shoppingCartController@removeItem'
+]);
+Route::get('/orderStore', [
+    'as' => 'orderStore',
+    'uses' => 'orderController@store'
+]);
+Route::get('/orders', [
+    'as' => 'orders',
+    'uses' => 'orderController@index'
+]);
+Route::get('/add/{id}', [
+    'as' => 'add',
     'uses' => 'productController@getAddToCart'
 ]);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

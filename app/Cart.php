@@ -20,7 +20,13 @@ class Cart
             $this->totalPrice = $oldCart->totalPrice;
         }
     }
-
+    /**
+     * Deze functie zorg ervoor dat je een item kan toevogen aan de shoppingcart
+     *
+     * @param array $item
+     * @param int $id
+     * @return void
+     */
     public function add($item, $id)
     {
         $storedItem = ['quantity' => 0, 'price' => $item->price, 'item' => $item];
@@ -35,6 +41,12 @@ class Cart
         $this->totalQuantity++;
         $this->totalPrice += $item->price;
     }
+    /**
+     * Zorgt ervoor dat je een product uit de shoppingcart kan halen
+     *
+     * @param int $id
+     * @return void
+     */
     public function removeProduct($id)
     {
         $item = $this->items[$id];
