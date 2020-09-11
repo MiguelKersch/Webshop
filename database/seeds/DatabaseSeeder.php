@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         for ($category = 1; $category < 6; $category++) {
             for ($product = 1; $product < 6; $product++) {
                 DB::table('product')->insert([
-                    'name' => 'product' . $product,
+                    'name' => $category . 'product' . $product,
                     'description' => 'description',
                     'price' => $product,
                     'category_id' => $category

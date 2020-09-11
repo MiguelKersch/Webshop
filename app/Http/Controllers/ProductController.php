@@ -14,15 +14,6 @@ use App\Product;
 class ProductController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    /**
      * Laat de product pagina zien met de data die nodig is
      *
      * @param int $id
