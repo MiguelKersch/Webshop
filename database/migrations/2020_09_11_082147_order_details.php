@@ -13,7 +13,10 @@ class OrderDetails extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('order_details', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            });
     }
 
     /**
@@ -23,6 +26,6 @@ class OrderDetails extends Migration
      */
     public function down()
     {
-        Schema::drop('OrderDetails');
+        Schema::dropIfExists('order_details');
     }
 }

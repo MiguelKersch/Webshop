@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use Session;
 use App\Cart;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\Category;
 
 class ProductController extends Controller
 {
@@ -21,10 +21,10 @@ class ProductController extends Controller
      */
     public function index($id)
     {
-        $categoryName = DB::table('category')->where('id', $id)->first();
-        $product = DB::table('product')->get()->where('category_id', $id);
+        $categoryName = Category::where('id', $id)->first();
+        $product = Category::find($id);
 
-        return view('product', ['products' => $product], ['category' => $categoryName]);
+        return view('product', ['product' => $product], ['category' => $categoryName]);
     }
 
     /**

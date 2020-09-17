@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Orders extends Model
+class OrderDetails extends Model
 {
-    protected $table = 'orders';
+    protected $table = 'OrderDetails';
     protected $fillable = [
-        'order_id',
-        '',
-        'user_name',
-        'price'
+       
     ];
+    public function order()
+    {
+        return $this->hasOne('App\Orders');
+    }
 }
