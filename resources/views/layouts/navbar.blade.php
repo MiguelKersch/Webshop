@@ -7,13 +7,6 @@
             <li class="nav-item">
                 <a class="text-light nav-link" href="{{ url('/category') }}">Category</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/category') }}">Link</a>
-            </li>
-            <li class="nav-item">
-
-
-            </li>
         </ul>
     </div>
     <div class="mx-auto order-0">
@@ -25,6 +18,9 @@
             @auth
             <li class="nav-item">
                 <a class="text-light nav-link" href="{{ url('shoppingCart') }}">Shopping Cart <span class='badge badge-light'>{{Session::has('cart') ? Session::get('cart')-> totalQuantity : ''}}</span></a>
+            </li> 
+            <li class="nav-item">
+                <a class="text-light nav-link" href="{{ url('/orders') }}">Orders</a>
             </li>
             <li class="nav-item">
                 <a class="text-light nav-link" href="{{ route('logout') }}">Logout</a>
