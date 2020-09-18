@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
+use App\Product;
 use App\Http\Controllers\Controller;
 
 class ProductViewController extends Controller
 {
     public function index($id)
     {
-        $product = DB::table('product')->where('id', $id)->first();
+        $product = Product::where('id', $id)->first();
 
-        return view('productView', ['product' => $product]);
+        return view('productView', ['product' => $product], ['id' => $id]);
     }
 }

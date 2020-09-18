@@ -12,22 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        for ($category = 1; $category < 6; $category++) {
-            DB::table('category')->insert([
-                'name' => 'category' . $category,
-                'description' => 'description'
-            ]);
-        }
-
-        for ($category = 1; $category < 6; $category++) {
-            for ($product = 1; $product < 6; $product++) {
-                DB::table('product')->insert([
-                    'name' => $category . 'product' . $product,
-                    'description' => 'description',
-                    'price' => $product,
-                    'category_id' => $category
-                ]);
-            }
-        }
+      
+        $this->call(ProductSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(CategoryProductSeeder::class);
+        
     }
 }

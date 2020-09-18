@@ -54,5 +54,13 @@ Route::get('/add/{id}', [
     'as' => 'add',
     'uses' => 'productController@getAddToCart'
 ]);
+Route::get('/orderDetails/{id}', [
+    'as' => 'orderDetails',
+    'uses' => 'orderController@orderDetails'
+]);
+Route::post('/shoppingCart/update/{id}', [
+    'uses' => 'ShoppingCartController@update',
+    'as' => 'shoppingCart.update'
+]);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });

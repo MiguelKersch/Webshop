@@ -13,8 +13,8 @@ class Orders extends Model
         'user_name',
         'price'
     ];
-    public function orderDetails()
-    {
-        return $this->hasOne('App\OrderDetails');
+    
+    public function product(){
+        return $this->belongsToMany('App\Product')->withPivot('quantity')->withPivot('price');
     }
 }

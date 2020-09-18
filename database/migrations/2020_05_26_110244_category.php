@@ -15,7 +15,7 @@ class Category extends Migration
     Schema::create('Category', function (Blueprint $table) {
         $table->id();
         $table->string('name');
-        $table->string('description');
+        $table->string('description' , 1000);
     });
 }
 

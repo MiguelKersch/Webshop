@@ -8,7 +8,8 @@ class Category extends Model
 {
     protected $table = 'Category';
     protected $fillable = ['name'];
-
+    public $timestamps = false;
+    
     public function products()
     {
         return $this->belongsToMany('App\Product');

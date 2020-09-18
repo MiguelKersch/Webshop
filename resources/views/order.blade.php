@@ -17,6 +17,7 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->price }}</td>
                     <td>{{ $order->created_at }}</td>
+                    <td><a href="/orderDetails/{{ $order->id }}"><i class="fas fa-arrow-right"></i></a></td>
                 </tr>
                 @endforeach
             </tbody>

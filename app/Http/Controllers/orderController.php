@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\OrdersProduct;
 use App\Orders;
+use Session;
+use App\Product;
 use DB;
 use App\cart;
 use Auth;
@@ -18,17 +21,37 @@ class OrderController extends Controller
     public function store(){
         $user = auth()->user();
         $cart = new cart();
-      Orders::create([
-          'user_id' => $user->id,
-          'user_email' => $user->email,
-          'user_name' => $user->name,
-          'price' => $cart->totalPrice
-      ]);
+
+       
+        $order = new Orders();
+        $order->user_id = $user->id;
+        $order->user_email = $user->email;
+        $order->user_name =  $user->name;
+        $order->price = $cart->totalPrice;
+        $order->save();
+
+        foreach($cart->items as $item){
+          $orderProduct = new OrdersProduct;
+          $orderProduct->orders_id = $order->id;
+          $orderProduct->product_id = $item['item']['id'];
+          $orderProduct->quantity= $item['quantity'];
+          $orderProduct->price = $item['price'];
+          
+          $orderProduct->save();
+
+          
+        }
+        Session::forget('cart');
         return redirect(route('orders'));
+    }
+    public function orderDetails($id){
+      $order = Orders::find($id)->product;
+      
+      return view('orderDetails', ['orderDetails' => $order]);
     }
 
     /**
-     * Haalt de user data op
+     * Haalt de Orders op van de user
      */
     public function index(){
       $orders = Orders::where('user_id', Auth::user()->id)->get();

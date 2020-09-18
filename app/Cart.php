@@ -3,6 +3,7 @@
 namespace App;
 
 use Session;
+use Illuminate\Http\Request;
 
 class Cart
 {
@@ -41,6 +42,63 @@ class Cart
         $this->totalQuantity++;
         $this->totalPrice += $item->price;
     }
+     /**
+     * Zorgt ervoor dat je een product uit de shoppingcart kan halen
+     *
+     * @param int $id
+     * @return void
+     */
+    public function updateQuantity(Request $request , $id , $quantity){
+       
+        if($quantity <= 0){
+            $this->removeProduct($id);
+            return;
+        }
+        //removes the current quantity and price from the total
+        $this->totalQuantity -= $this->items[$id]['quantity'];
+        $this->totalQuantity += $quantity;
+
+        $this->totalPrice -= $this->items[$id]['price'];
+        $this->totalPrice += $quantity * $this->items[$id]['price'];
+
+       if ($this->totalQuantity == 0) {
+            $this->items[$id]['price'] = $quantity * $this->items[$id]['price'];
+        } else {
+            $this->items[$id]['price'] = $quantity * ($this->items[$id]['price'] /
+                $this->items[$id]['quantity']);
+        }
+        $this->items[$id]['quantity'] = $quantity;
+
+
+        $request->session()->put('cart', $this);
+    }
+     /**
+     * Gets the total quantity of all products in the shoppingcart
+     *
+     * @return $totalQuantity
+     */
+    public function getTotalQuantity()
+    {
+        $totalQuantity = 0;
+        foreach ($this->items as $product) {
+            $totalQuantity += $product['quantity'];
+        }
+        return $totalQuantity;
+    }
+
+    /**
+     * Gets the total price of every product in the shoppingcart
+     *
+     * @return $totalPrice
+     */
+    public function getTotalPrice()
+    {
+        $totalPrice = 0;
+        foreach ($this->items as $product) {
+            $totalPrice += $product['price'];
+        }
+        return $totalPrice;
+    }
     /**
      * Zorgt ervoor dat je een product uit de shoppingcart kan halen
      *
@@ -49,22 +107,13 @@ class Cart
      */
     public function removeProduct($id)
     {
-        $item = $this->items[$id];
-
-        $this->totalQuantity--;
-        $this->items[$id]['quantity']--;
-        $item['price'] -= $item['item']['price'];
-        $this->totalPrice -= $item['item']['price'];
-
-        if ($this->items[$id]['quantity'] <= 0) {
-            unset($this->items[$id]);
-        }
-        $products = $this->items;
-
-        if ($products == null) {
+        unset($this->items[$id]);
+        if (empty($this->items)) {
             Session::forget('cart');
         } else {
             Session::put('cart', $this);
         }
     }
+
+
 }

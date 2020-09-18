@@ -18,7 +18,8 @@ class ShoppingCartController extends Controller
             return view('shoppingCart', ['products' => null]);
         }
         $cart = new cart();
-        return view('shoppingCart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
+
+        return view('shoppingCart', ['cartDetails' => $cart]);
     }
     public function removeItem(Request $request, $id)
     {
@@ -27,4 +28,10 @@ class ShoppingCartController extends Controller
 
         return redirect()->back();
     }
+    public function update(Request $request, $id){
+            $cart = new Cart();
+            $cart->updateQuantity($request, $id, $request->input("quantityInput"));
+
+            return redirect()->back();
+        }
 }

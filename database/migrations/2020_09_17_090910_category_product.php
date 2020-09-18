@@ -15,14 +15,14 @@ class CategoryProduct extends Migration
     {
         Schema::create('category_product', function (Blueprint $table) {
         $table->id();
+
         $table->integer('category_id')->unsigned();
         $table->foreign('category_id')
-            ->references('id')->on('category')
-            ->onDelete('cascade');
+            ->references('id')->on('category');
+
         $table->integer('product_id')->unsigned();
         $table->foreign('product_id')
-            ->references('id')->on('product')
-            ->onDelete('cascade');
+            ->references('id')->on('product');
         });
     }
 

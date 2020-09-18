@@ -18,8 +18,6 @@ class Products extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('price');
-            $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('category');
         });
     }
 
